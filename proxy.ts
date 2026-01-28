@@ -32,8 +32,14 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // Allow webhook routes through without auth
+  const isWebhookRoute = request.nextUrl.pathname.startsWith('/api/webhooks')
+  if (isWebhookRoute) {
+    return supabaseResponse
+  }
+
   // Public routes that don't require authentication
-  const publicRoutes = ['/', '/login', '/signup', '/checkout']
+  const publicRoutes = ['/', '/login', '/signup', '/checkout', '/blocked']
   const isPublicRoute = publicRoutes.includes(request.nextUrl.pathname) ||
     request.nextUrl.pathname.startsWith('/auth/')
 
