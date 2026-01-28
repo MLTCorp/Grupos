@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Automacao inteligente de grupos WhatsApp sem precisar compartilhar acesso a instancia
-**Current focus:** Phase 2 - Stripe Billing (IN PROGRESS)
+**Current focus:** Phase 2 - Stripe Billing (COMPLETE)
 
 ## Current Position
 
-Phase: 2 of 7 (Stripe Billing)
-Plan: 4 of 5 in current phase (02-01, 02-02, 02-03, 02-04 complete)
-Status: In progress
-Last activity: 2026-01-28 - Completed 02-04-PLAN.md (Stripe Webhooks & Subscription Sync)
+Phase: 2 of 7 (Stripe Billing) - COMPLETE
+Plan: 5 of 5 in current phase (02-01, 02-02, 02-03, 02-04, 02-05 complete)
+Status: Phase complete - Ready for Phase 03
+Last activity: 2026-01-28 - Completed 02-05-PLAN.md (Subscription UI & Gating)
 
-Progress: [======----] 33%
+Progress: [=======---] 36%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
-- Average duration: 4.7 min
-- Total execution time: 0.55 hours
+- Total plans completed: 8
+- Average duration: 4.5 min
+- Total execution time: 0.6 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-auth-foundation | 3 | 15 min | 5 min |
-| 02-stripe-billing | 4 | 19 min | 4.75 min |
+| 02-stripe-billing | 5 | 22 min | 4.4 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (4 min), 02-01 (6 min), 02-02 (2 min), 02-03 (4 min), 02-04 (7 min)
+- Last 5 plans: 02-01 (6 min), 02-02 (2 min), 02-03 (4 min), 02-04 (7 min), 02-05 (3 min)
 - Trend: Consistently fast
 
 *Updated after each plan completion*
@@ -65,6 +65,9 @@ Recent decisions affecting current work:
 - [02-04]: Get current_period from subscription.items.data[0] (Stripe API 2026-01-28.clover structure)
 - [02-04]: Grace period allows view but not send (canSendMessages: false)
 - [02-04]: BILL-07 email notifications deferred to Phase 6 (logged for monitoring)
+- [02-05]: Dashboard graceful degradation - billing errors default to allowing access
+- [02-05]: Webhook routes bypass auth in proxy (use Stripe signature verification)
+- [02-05]: Trial badge in header (visible on all dashboard pages)
 
 ### Pending Todos
 
@@ -80,8 +83,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28T22:40:10Z
-Stopped at: Completed 02-04-PLAN.md (Stripe Webhooks & Subscription Sync)
+Last session: 2026-01-28T22:46:00Z
+Stopped at: Completed 02-05-PLAN.md (Subscription UI & Gating) - Phase 02 COMPLETE
 Resume file: None
 
 ---
