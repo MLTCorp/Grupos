@@ -13,7 +13,7 @@ Sincron Grupos transforms from a UI showcase into a production SaaS for WhatsApp
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Auth Foundation** - Supabase authentication with polished login/signup UI and landing page basics
-- [ ] **Phase 2: Stripe Billing** - Trial-based subscription with checkout, webhooks, and subscription gating
+- [x] **Phase 2: Stripe Billing** - Trial-based subscription with checkout, webhooks, and subscription gating
 - [ ] **Phase 3: Dashboard Shell** - Responsive sidebar navigation and global UI patterns
 - [ ] **Phase 4: Instances + MCP Foundation** - WhatsApp instance management via UAZAPI with core MCP tools
 - [ ] **Phase 5: Categories & Groups** - Group organization system with import, categorization, and filtering
@@ -52,11 +52,11 @@ Plans:
 **Plans**: 5 plans in 3 waves
 
 Plans:
-- [ ] 02-01-PLAN.md — Stripe SDK + database schema (Wave 1)
-- [ ] 02-02-PLAN.md — Landing page pricing with 3 plans (Wave 1)
-- [ ] 02-03-PLAN.md — Checkout flow after signup (Wave 2)
-- [ ] 02-04-PLAN.md — Webhook handler for subscription sync (Wave 2)
-- [ ] 02-05-PLAN.md — Subscription gating, trial badge, billing page, block screen (Wave 3)
+- [x] 02-01-PLAN.md — Stripe SDK + database schema (Wave 1)
+- [x] 02-02-PLAN.md — Landing page pricing with 3 plans (Wave 1)
+- [x] 02-03-PLAN.md — Checkout flow after signup (Wave 2)
+- [x] 02-04-PLAN.md — Webhook handler for subscription sync (Wave 2)
+- [x] 02-05-PLAN.md — Subscription gating, trial badge, billing page, block screen (Wave 3)
 
 ### Phase 3: Dashboard Shell
 **Goal**: Users navigate application via consistent sidebar and receive visual feedback for actions
@@ -150,7 +150,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Auth Foundation | 3/3 | Complete | 2026-01-28 |
-| 2. Stripe Billing | 0/5 | Planned | - |
+| 2. Stripe Billing | 5/5 | Complete | 2026-01-28 |
 | 3. Dashboard Shell | 0/2 | Not started | - |
 | 4. Instances + MCP Foundation | 0/3 | Not started | - |
 | 5. Categories & Groups | 0/3 | Not started | - |
@@ -159,4 +159,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-28 (Phase 2 planned)*
+*Last updated: 2026-01-28 (Phase 2 complete)*
