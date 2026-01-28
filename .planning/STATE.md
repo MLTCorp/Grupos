@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 2 of 7 (Stripe Billing)
-Plan: 3 of 5 in current phase (02-01, 02-02, 02-03 complete)
+Plan: 4 of 5 in current phase (02-01, 02-02, 02-03, 02-04 complete)
 Status: In progress
-Last activity: 2026-01-28 - Completed 02-03-PLAN.md (Checkout Flow with Plan Selection)
+Last activity: 2026-01-28 - Completed 02-04-PLAN.md (Stripe Webhooks & Subscription Sync)
 
-Progress: [=====-----] 29%
+Progress: [======----] 33%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 4.5 min
-- Total execution time: 0.45 hours
+- Total plans completed: 7
+- Average duration: 4.7 min
+- Total execution time: 0.55 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-auth-foundation | 3 | 15 min | 5 min |
-| 02-stripe-billing | 3 | 12 min | 4 min |
+| 02-stripe-billing | 4 | 19 min | 4.75 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (3 min), 01-03 (4 min), 02-01 (6 min), 02-02 (2 min), 02-03 (4 min)
+- Last 5 plans: 01-03 (4 min), 02-01 (6 min), 02-02 (2 min), 02-03 (4 min), 02-04 (7 min)
 - Trend: Consistently fast
 
 *Updated after each plan completion*
@@ -62,6 +62,9 @@ Recent decisions affecting current work:
 - [02-02]: Enterprise uses WhatsApp link with pre-filled message
 - [02-03]: Price IDs from env vars, not database (simplicity and reliability for checkout)
 - [02-03]: Server Action pattern for checkout form handling with redirect
+- [02-04]: Get current_period from subscription.items.data[0] (Stripe API 2026-01-28.clover structure)
+- [02-04]: Grace period allows view but not send (canSendMessages: false)
+- [02-04]: BILL-07 email notifications deferred to Phase 6 (logged for monitoring)
 
 ### Pending Todos
 
@@ -77,8 +80,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28T22:38:43Z
-Stopped at: Completed 02-03-PLAN.md (Checkout Flow with Plan Selection)
+Last session: 2026-01-28T22:40:10Z
+Stopped at: Completed 02-04-PLAN.md (Stripe Webhooks & Subscription Sync)
 Resume file: None
 
 ---
