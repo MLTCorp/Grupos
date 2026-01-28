@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 2 of 7 (Stripe Billing)
-Plan: 2 of 5 in current phase
+Plan: 2 of 5 in current phase (02-01, 02-02 complete)
 Status: In progress
-Last activity: 2026-01-28 - Completed 02-02-PLAN.md (Landing Page Pricing)
+Last activity: 2026-01-28 - Completed 02-01-PLAN.md (Stripe SDK & Billing Schema)
 
 Progress: [====------] 24%
 
@@ -55,6 +55,8 @@ Recent decisions affecting current work:
 - [01-03]: Middleware route protection for /dashboard/* with auth check
 - [01-03]: Logout redirects to / (home) rather than /login
 - [01-03]: Dashboard layout has server-side auth check as defense in depth
+- [02-01]: Updated Stripe API version to 2026-01-28.clover (current SDK version)
+- [02-01]: Service client uses createClient directly (not SSR) for webhook handlers
 - [02-02]: Hardcoded prices in landing page (marketing content, separate from Stripe billing)
 - [02-02]: Trial badge uses Badge component with green styling and Clock icon
 - [02-02]: Enterprise uses WhatsApp link with pre-filled message
@@ -66,12 +68,14 @@ None yet.
 ### Blockers/Concerns
 
 - User needs to configure Supabase environment variables before auth can be tested
+- User needs to configure Stripe environment variables (STRIPE_SECRET_KEY, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, STRIPE_WEBHOOK_SECRET)
+- User needs to run billing schema migration in Supabase SQL Editor
 - WhatsApp number placeholder (5511999999999) needs to be configured for Enterprise contact
 
 ## Session Continuity
 
-Last session: 2026-01-28T22:28:04Z
-Stopped at: Completed 02-02-PLAN.md (Landing Page Pricing)
+Last session: 2026-01-28T22:29:53Z
+Stopped at: Completed 02-01-PLAN.md (Stripe SDK & Billing Schema)
 Resume file: None
 
 ---
