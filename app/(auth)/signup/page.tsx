@@ -41,8 +41,8 @@ export default function SignupPage() {
       return
     }
 
-    toast.success("Conta criada! Verifique seu email para confirmar.")
-    router.push("/login")
+    toast.success("Conta criada! Escolha seu plano para continuar.")
+    router.push("/checkout")
   }
 
   return (
