@@ -12,7 +12,7 @@ Sincron Grupos transforms from a UI showcase into a production SaaS for WhatsApp
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Auth Foundation** - Supabase authentication with polished login/signup UI and landing page basics
+- [x] **Phase 1: Auth Foundation** - Supabase authentication with polished login/signup UI and landing page basics
 - [ ] **Phase 2: Stripe Billing** - Trial-based subscription with checkout, webhooks, and subscription gating
 - [ ] **Phase 3: Dashboard Shell** - Responsive sidebar navigation and global UI patterns
 - [ ] **Phase 4: Instances + MCP Foundation** - WhatsApp instance management via UAZAPI with core MCP tools
@@ -35,9 +35,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Supabase setup + landing page migration (Wave 1)
-- [ ] 01-02-PLAN.md — Auth pages: login and signup (Wave 2)
-- [ ] 01-03-PLAN.md — Route protection + auth callback (Wave 2)
+- [x] 01-01-PLAN.md — Supabase setup + landing page migration (Wave 1)
+- [x] 01-02-PLAN.md — Auth pages: login and signup (Wave 2)
+- [x] 01-03-PLAN.md — Route protection + auth callback (Wave 2)
 
 ### Phase 2: Stripe Billing
 **Goal**: Users pay for service via trial-based subscription with automatic conversion
@@ -147,7 +147,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth Foundation | 0/3 | Planned | - |
+| 1. Auth Foundation | 3/3 | Complete | 2026-01-28 |
 | 2. Stripe Billing | 0/3 | Not started | - |
 | 3. Dashboard Shell | 0/2 | Not started | - |
 | 4. Instances + MCP Foundation | 0/3 | Not started | - |
@@ -157,4 +157,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-28 (Phase 1 planned)*
+*Last updated: 2026-01-28 (Phase 1 complete)*

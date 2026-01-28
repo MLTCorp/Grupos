@@ -157,15 +157,15 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| AUTH-05 | Phase 1 | Pending |
-| AUTH-06 | Phase 1 | Pending |
-| AUTH-07 | Phase 1 | Pending |
-| LAND-01 | Phase 1 | Pending |
-| LAND-04 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
+| AUTH-05 | Phase 1 | Complete |
+| AUTH-06 | Phase 1 | Complete |
+| AUTH-07 | Phase 1 | Complete |
+| LAND-01 | Phase 1 | Complete |
+| LAND-04 | Phase 1 | Complete |
 | BILL-01 | Phase 2 | Pending |
 | BILL-02 | Phase 2 | Pending |
 | BILL-03 | Phase 2 | Pending |
@@ -248,4 +248,4 @@
 
 ---
 *Requirements defined: 2026-01-28*
-*Last updated: 2026-01-28 after roadmap creation*
+*Last updated: 2026-01-28 (Phase 1 complete)*
