@@ -5,33 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Automacao inteligente de grupos WhatsApp sem precisar compartilhar acesso a instancia
-**Current focus:** Phase 1 - Auth Foundation
+**Current focus:** Phase 1 - Auth Foundation (COMPLETE)
 
 ## Current Position
 
 Phase: 1 of 7 (Auth Foundation)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-01-28 - Completed 01-02-PLAN.md (Login & Signup Pages)
+Plan: 3 of 3 in current phase
+Status: Phase complete
+Last activity: 2026-01-28 - Completed 01-03-PLAN.md (Route Protection + Dashboard)
 
-Progress: [==--------] 10%
+Progress: [===-------] 14%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 5.5 min
-- Total execution time: 0.18 hours
+- Total plans completed: 3
+- Average duration: 5 min
+- Total execution time: 0.25 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-auth-foundation | 2 | 11 min | 5.5 min |
+| 01-auth-foundation | 3 | 15 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (8 min), 01-02 (3 min)
-- Trend: Improving
+- Last 5 plans: 01-01 (8 min), 01-02 (3 min), 01-03 (4 min)
+- Trend: Consistently fast
 
 *Updated after each plan completion*
 
@@ -51,6 +51,9 @@ Recent decisions affecting current work:
 - [01-02]: Default org name as 'Organizacao de {name}' when not provided
 - [01-02]: Portuguese UI text for Brazilian Portuguese localization
 - [01-02]: User metadata (name, org_name) stored in Supabase user on signup
+- [01-03]: Middleware route protection for /dashboard/* with auth check
+- [01-03]: Logout redirects to / (home) rather than /login
+- [01-03]: Dashboard layout has server-side auth check as defense in depth
 
 ### Pending Todos
 
@@ -62,8 +65,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-28T20:31:00Z
-Stopped at: Completed 01-02-PLAN.md
+Last session: 2026-01-28T20:30:33Z
+Stopped at: Completed 01-03-PLAN.md (Phase 01 complete)
 Resume file: None
 
 ---
