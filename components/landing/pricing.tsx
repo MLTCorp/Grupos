@@ -4,62 +4,26 @@ import Link from "next/link"
 import { Check } from "lucide-react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { ShineBorder } from "@/components/magicui/shine-border"
 
-const plans = [
-  {
-    name: "Starter",
-    description: "Para quem esta comecando",
-    price: "Gratis",
-    period: "",
-    features: [
-      "1 instancia WhatsApp",
-      "Ate 5 grupos",
-      "Comandos basicos",
-      "Suporte por email",
-    ],
-    cta: "Comecar Gratis",
-    href: "/signup",
-    popular: false,
-  },
-  {
-    name: "Pro",
-    description: "Para profissionais",
-    price: "R$ 97",
-    period: "/mes",
-    features: [
-      "3 instancias WhatsApp",
-      "Grupos ilimitados",
-      "Todos os comandos",
-      "IA integrada",
-      "Mensagens em massa",
-      "Analytics avancado",
-      "Suporte prioritario",
-    ],
-    cta: "Assinar Pro",
-    href: "/signup?plan=pro",
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    description: "Para grandes equipes",
-    price: "R$ 297",
-    period: "/mes",
-    features: [
-      "10 instancias WhatsApp",
-      "Grupos ilimitados",
-      "API completa",
-      "White-label",
-      "Integracoes customizadas",
-      "Gerente de conta dedicado",
-      "SLA garantido",
-    ],
-    cta: "Falar com Vendas",
-    href: "/contact",
-    popular: false,
-  },
-]
+const plan = {
+  name: "Profissional",
+  description: "Tudo que voce precisa para gerenciar seus grupos",
+  price: "R$ 147",
+  period: "/mes por instancia",
+  trial: "7 dias gratis",
+  features: [
+    "Grupos ilimitados",
+    "Agendamento de mensagens",
+    "Categorias personalizadas",
+    "IA integrada",
+    "Mensagens em massa",
+    "Historico completo",
+    "Suporte prioritario",
+  ],
+  cta: "Comecar Trial Gratis",
+  href: "/signup",
+}
 
 export function Pricing() {
   return (
@@ -91,79 +55,56 @@ export function Pricing() {
             transition={{ delay: 0.2 }}
             className="mt-4 text-lg text-muted-foreground"
           >
-            Comece gratis e escale conforme seu negocio cresce. Sem surpresas,
-            sem taxas ocultas.
+            Preco simples e transparente. Teste gratis por 7 dias.
           </motion.p>
         </div>
 
-        {/* Plans Grid */}
-        <div className="grid gap-8 md:grid-cols-3 max-w-6xl mx-auto">
-          {plans.map((plan, index) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="relative"
+        {/* Single Plan Card */}
+        <div className="max-w-md mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            <ShineBorder
+              className="w-full"
+              color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
             >
-              {plan.popular ? (
-                <ShineBorder
-                  className="w-full"
-                  color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
-                >
-                  <PlanCard plan={plan} />
-                </ShineBorder>
-              ) : (
-                <div className="rounded-2xl border bg-background">
-                  <PlanCard plan={plan} />
+              <div className="p-8 h-full flex flex-col">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
+                    {plan.trial}
+                  </span>
                 </div>
-              )}
-            </motion.div>
-          ))}
+
+                <div className="mb-6 text-center">
+                  <h3 className="text-xl font-bold">{plan.name}</h3>
+                  <p className="text-muted-foreground text-sm mt-1">{plan.description}</p>
+                </div>
+
+                <div className="mb-6 text-center">
+                  <span className="text-4xl font-bold">{plan.price}</span>
+                  <span className="text-muted-foreground">{plan.period}</span>
+                </div>
+
+                <ul className="space-y-3 mb-8 flex-1">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <span className="text-sm">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button asChild className="w-full">
+                  <Link href={plan.href}>{plan.cta}</Link>
+                </Button>
+              </div>
+            </ShineBorder>
+          </motion.div>
         </div>
       </div>
     </section>
-  )
-}
-
-function PlanCard({ plan }: { plan: (typeof plans)[0] }) {
-  return (
-    <div className="p-8 h-full flex flex-col">
-      {plan.popular && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-          <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
-            Mais Popular
-          </span>
-        </div>
-      )}
-
-      <div className="mb-6">
-        <h3 className="text-xl font-bold">{plan.name}</h3>
-        <p className="text-muted-foreground text-sm mt-1">{plan.description}</p>
-      </div>
-
-      <div className="mb-6">
-        <span className="text-4xl font-bold">{plan.price}</span>
-        <span className="text-muted-foreground">{plan.period}</span>
-      </div>
-
-      <ul className="space-y-3 mb-8 flex-1">
-        {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-3">
-            <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-            <span className="text-sm">{feature}</span>
-          </li>
-        ))}
-      </ul>
-
-      <Button
-        asChild
-        className={cn("w-full", !plan.popular && "variant-outline")}
-        variant={plan.popular ? "default" : "outline"}
-      >
-        <Link href={plan.href}>{plan.cta}</Link>
-      </Button>
-    </div>
   )
 }
