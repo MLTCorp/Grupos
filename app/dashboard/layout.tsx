@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { LogoutButton } from "./logout-button"
+import { TrialBadge } from "@/components/trial-badge"
+import { getSubscriptionStatus } from "@/lib/subscription"
 
 export default async function DashboardLayout({
   children,
@@ -14,6 +16,28 @@ export default async function DashboardLayout({
     redirect("/login")
   }
 
+  // Check subscription status with error handling
+  let subscriptionInfo
+  try {
+    subscriptionInfo = await getSubscriptionStatus(user.id)
+  } catch (error) {
+    // If database is unreachable or query fails, allow access with degraded experience
+    // Log error for monitoring, but don't block user from their dashboard
+    console.error('[BILLING] Failed to get subscription status:', error)
+    // Default to allowing access - billing issues shouldn't block dashboard
+    subscriptionInfo = { status: 'active' as const, daysRemaining: null, subscription: null, canSendMessages: true }
+  }
+
+  // If blocked, redirect to block screen
+  if (subscriptionInfo.status === 'blocked') {
+    redirect("/blocked")
+  }
+
+  // If no subscription at all, redirect to checkout
+  if (subscriptionInfo.status === 'none') {
+    redirect("/checkout")
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b">
@@ -25,6 +49,10 @@ export default async function DashboardLayout({
             <span className="font-semibold">Sincron Grupos</span>
           </div>
           <div className="flex items-center gap-4">
+            <TrialBadge
+              status={subscriptionInfo.status}
+              daysRemaining={subscriptionInfo.daysRemaining}
+            />
             <span className="text-sm text-muted-foreground">{user.email}</span>
             <LogoutButton />
           </div>
