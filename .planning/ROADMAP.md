@@ -49,12 +49,14 @@ Plans:
   3. User can access Stripe Customer Portal to update card or cancel subscription
   4. User with expired trial and no active subscription cannot access dashboard features
   5. Landing page pricing section shows R$ 147/month per instance with clear CTA to signup
-**Plans**: TBD
+**Plans**: 5 plans in 3 waves
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md — Stripe SDK + database schema (Wave 1)
+- [ ] 02-02-PLAN.md — Landing page pricing with 3 plans (Wave 1)
+- [ ] 02-03-PLAN.md — Checkout flow after signup (Wave 2)
+- [ ] 02-04-PLAN.md — Webhook handler for subscription sync (Wave 2)
+- [ ] 02-05-PLAN.md — Subscription gating, trial badge, billing page, block screen (Wave 3)
 
 ### Phase 3: Dashboard Shell
 **Goal**: Users navigate application via consistent sidebar and receive visual feedback for actions
@@ -148,7 +150,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Auth Foundation | 3/3 | Complete | 2026-01-28 |
-| 2. Stripe Billing | 0/3 | Not started | - |
+| 2. Stripe Billing | 0/5 | Planned | - |
 | 3. Dashboard Shell | 0/2 | Not started | - |
 | 4. Instances + MCP Foundation | 0/3 | Not started | - |
 | 5. Categories & Groups | 0/3 | Not started | - |
@@ -157,4 +159,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-28 (Phase 1 complete)*
+*Last updated: 2026-01-28 (Phase 2 planned)*
