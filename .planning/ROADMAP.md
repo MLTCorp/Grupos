@@ -32,12 +32,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. User can log out from any dashboard page and is redirected to home
   4. Accessing /dashboard without login redirects to /login
   5. Landing page displays Hero, Features, HowItWorks, FAQ, CTA, Footer sections on mobile and desktop
-**Plans**: TBD
+**Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md — Supabase setup + landing page migration (Wave 1)
+- [ ] 01-02-PLAN.md — Auth pages: login and signup (Wave 2)
+- [ ] 01-03-PLAN.md — Route protection + auth callback (Wave 2)
 
 ### Phase 2: Stripe Billing
 **Goal**: Users pay for service via trial-based subscription with automatic conversion
@@ -147,7 +147,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth Foundation | 0/3 | Not started | - |
+| 1. Auth Foundation | 0/3 | Planned | - |
 | 2. Stripe Billing | 0/3 | Not started | - |
 | 3. Dashboard Shell | 0/2 | Not started | - |
 | 4. Instances + MCP Foundation | 0/3 | Not started | - |
@@ -157,4 +157,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-28*
+*Last updated: 2026-01-28 (Phase 1 planned)*
