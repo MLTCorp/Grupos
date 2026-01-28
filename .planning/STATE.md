@@ -5,32 +5,33 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Automacao inteligente de grupos WhatsApp sem precisar compartilhar acesso a instancia
-**Current focus:** Phase 1 - Auth Foundation (COMPLETE)
+**Current focus:** Phase 2 - Stripe Billing (IN PROGRESS)
 
 ## Current Position
 
-Phase: 1 of 7 (Auth Foundation)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-01-28 - Completed 01-03-PLAN.md (Route Protection + Dashboard)
+Phase: 2 of 7 (Stripe Billing)
+Plan: 2 of 5 in current phase
+Status: In progress
+Last activity: 2026-01-28 - Completed 02-02-PLAN.md (Landing Page Pricing)
 
-Progress: [===-------] 14%
+Progress: [====------] 24%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 5 min
-- Total execution time: 0.25 hours
+- Total plans completed: 5
+- Average duration: 4.6 min
+- Total execution time: 0.38 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-auth-foundation | 3 | 15 min | 5 min |
+| 02-stripe-billing | 2 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (8 min), 01-02 (3 min), 01-03 (4 min)
+- Last 5 plans: 01-01 (8 min), 01-02 (3 min), 01-03 (4 min), 02-01 (6 min), 02-02 (2 min)
 - Trend: Consistently fast
 
 *Updated after each plan completion*
@@ -54,6 +55,9 @@ Recent decisions affecting current work:
 - [01-03]: Middleware route protection for /dashboard/* with auth check
 - [01-03]: Logout redirects to / (home) rather than /login
 - [01-03]: Dashboard layout has server-side auth check as defense in depth
+- [02-02]: Hardcoded prices in landing page (marketing content, separate from Stripe billing)
+- [02-02]: Trial badge uses Badge component with green styling and Clock icon
+- [02-02]: Enterprise uses WhatsApp link with pre-filled message
 
 ### Pending Todos
 
@@ -62,11 +66,12 @@ None yet.
 ### Blockers/Concerns
 
 - User needs to configure Supabase environment variables before auth can be tested
+- WhatsApp number placeholder (5511999999999) needs to be configured for Enterprise contact
 
 ## Session Continuity
 
-Last session: 2026-01-28T20:30:33Z
-Stopped at: Completed 01-03-PLAN.md (Phase 01 complete)
+Last session: 2026-01-28T22:28:04Z
+Stopped at: Completed 02-02-PLAN.md (Landing Page Pricing)
 Resume file: None
 
 ---
