@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -58,7 +58,36 @@ const plans: Plan[] = [
   },
 ]
 
+// Wrapper component to handle Suspense for useSearchParams
 export default function CheckoutPage() {
+  return (
+    <Suspense fallback={<CheckoutPageSkeleton />}>
+      <CheckoutContent />
+    </Suspense>
+  )
+}
+
+function CheckoutPageSkeleton() {
+  return (
+    <div className="w-full max-w-4xl">
+      <div className="text-center mb-8">
+        <div className="mx-auto w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+          <span className="text-primary-foreground font-bold text-lg">SG</span>
+        </div>
+        <h1 className="text-2xl font-bold mb-2">Escolha seu plano</h1>
+        <p className="text-muted-foreground">
+          Comece com 7 dias de trial gratuito
+        </p>
+      </div>
+      <div className="grid md:grid-cols-2 gap-6">
+        <div className="h-96 rounded-lg border bg-muted animate-pulse" />
+        <div className="h-96 rounded-lg border bg-muted animate-pulse" />
+      </div>
+    </div>
+  )
+}
+
+function CheckoutContent() {
   const searchParams = useSearchParams()
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null)
 
