@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Auth Foundation** - Supabase authentication with polished login/signup UI and landing page basics
 - [x] **Phase 2: Stripe Billing** - Trial-based subscription with checkout, webhooks, and subscription gating
-- [ ] **Phase 3: Dashboard Shell** - Responsive sidebar navigation and global UI patterns
+- [x] **Phase 3: Dashboard Shell** - Responsive sidebar navigation and global UI patterns
 - [ ] **Phase 4: Instances + MCP Foundation** - WhatsApp instance management via UAZAPI with core MCP tools
 - [ ] **Phase 5: Categories & Groups** - Group organization system with import, categorization, and filtering
 - [ ] **Phase 6: Messages** - Message sending to groups with scheduling and history
@@ -71,9 +71,9 @@ Plans:
 **Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 03-01-PLAN.md — Theme system + toast notifications (Wave 1)
-- [ ] 03-02-PLAN.md — Sidebar navigation + mobile bottom nav (Wave 2)
-- [ ] 03-03-PLAN.md — Onboarding tour for new users (Wave 3)
+- [x] 03-01-PLAN.md — Theme system + toast notifications (Wave 1)
+- [x] 03-02-PLAN.md — Sidebar navigation + mobile bottom nav (Wave 2)
+- [x] 03-03-PLAN.md — Onboarding tour for new users (Wave 3)
 
 ### Phase 4: Instances + MCP Foundation
 **Goal**: Users connect WhatsApp instances via UAZAPI and system establishes MCP tool infrastructure
@@ -152,7 +152,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 |-------|----------------|--------|-----------|
 | 1. Auth Foundation | 3/3 | Complete | 2026-01-28 |
 | 2. Stripe Billing | 5/5 | Complete | 2026-01-28 |
-| 3. Dashboard Shell | 0/3 | Planned | - |
+| 3. Dashboard Shell | 3/3 | Complete | 2026-01-29 |
 | 4. Instances + MCP Foundation | 0/3 | Not started | - |
 | 5. Categories & Groups | 0/3 | Not started | - |
 | 6. Messages | 0/3 | Not started | - |
@@ -160,4 +160,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-28 (Phase 3 planned)*
+*Last updated: 2026-01-29 (Phase 3 complete)*

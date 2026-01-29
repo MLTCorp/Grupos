@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Automacao inteligente de grupos WhatsApp sem precisar compartilhar acesso a instancia
-**Current focus:** Phase 3 - Dashboard Shell (IN PROGRESS)
+**Current focus:** Phase 3 - Dashboard Shell (COMPLETE)
 
 ## Current Position
 
 Phase: 3 of 7 (Dashboard Shell)
-Plan: 2 of 4 in current phase (03-02 complete)
-Status: In progress
-Last activity: 2026-01-29 - Completed 03-02-PLAN.md (Navigation System)
+Plan: 3 of 3 in current phase (03-03 complete)
+Status: Complete
+Last activity: 2026-01-29 - Completed 03-03-PLAN.md (Onboarding Tour)
 
-Progress: [=========-] 45%
+Progress: [==========] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 10
-- Average duration: 4.2 min
-- Total execution time: 0.70 hours
+- Total plans completed: 11
+- Average duration: 4.5 min
+- Total execution time: 0.82 hours
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: [=========-] 45%
 |-------|-------|-------|----------|
 | 01-auth-foundation | 3 | 15 min | 5 min |
 | 02-stripe-billing | 5 | 22 min | 4.4 min |
-| 03-dashboard-shell | 2 | 7 min | 3.5 min |
+| 03-dashboard-shell | 3 | 12 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-03 (4 min), 02-04 (7 min), 02-05 (3 min), 03-01 (4 min), 03-02 (3 min)
+- Last 5 plans: 02-04 (7 min), 02-05 (3 min), 03-01 (4 min), 03-02 (3 min), 03-03 (5 min)
 - Trend: Consistently fast
 
 *Updated after each plan completion*
@@ -75,6 +75,10 @@ Recent decisions affecting current work:
 - [03-02]: Navigation items centralized in lib/navigation.ts for sidebar and bottom nav
 - [03-02]: Disabled nav items visible for full app structure visibility from day one
 - [03-02]: User avatar initials derived from user name as fallback
+- [03-03]: driver.js for onboarding tour (Portuguese localized)
+- [03-03]: Tour triggers based on instancias_whatsapp count via usuarios_sistema
+- [03-03]: Billing sync added to syncSubscription - updates organizacoes table
+- [03-03]: Tour skips on mobile (bottom nav is self-explanatory)
 
 ### Pending Todos
 
@@ -91,7 +95,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-29
-Stopped at: Completed 03-02-PLAN.md (Navigation System)
+Stopped at: Phase 3 complete - ready for verification
 Resume file: None
 
 ---
