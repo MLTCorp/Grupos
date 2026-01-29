@@ -4,6 +4,8 @@ import { TrialBadge } from "@/components/trial-badge"
 import { getSubscriptionStatus } from "@/lib/subscription"
 import { AppSidebar } from "@/components/app-sidebar"
 import { BottomNav } from "@/components/bottom-nav"
+import { TourProvider } from "@/components/onboarding/tour-provider"
+import { checkNeedsOnboarding } from "@/components/onboarding/use-onboarding"
 import {
   SidebarProvider,
   SidebarInset,
@@ -48,6 +50,15 @@ export default async function DashboardLayout({
   // Get user name from metadata or fallback to email prefix
   const userName = user.user_metadata?.name || user.email?.split('@')[0] || 'Usuario'
 
+  // Check if user needs onboarding tour (no instances yet)
+  let needsOnboarding = false
+  try {
+    needsOnboarding = await checkNeedsOnboarding(user.id)
+  } catch (error) {
+    // Don't show tour on error - graceful degradation
+    console.error('[ONBOARDING] Failed to check onboarding status:', error)
+  }
+
   return (
     <SidebarProvider>
       <AppSidebar user={{ name: userName, email: user.email || '' }} />
@@ -66,6 +77,7 @@ export default async function DashboardLayout({
         </main>
       </SidebarInset>
       <BottomNav />
+      <TourProvider userId={user.id} needsOnboarding={needsOnboarding} />
     </SidebarProvider>
   )
 }
