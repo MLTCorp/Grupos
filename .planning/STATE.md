@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-28)
 
 **Core value:** Automacao inteligente de grupos WhatsApp sem precisar compartilhar acesso a instancia
-**Current focus:** Phase 3 - Dashboard Shell (COMPLETE)
+**Current focus:** Phase 4 - Instances & MCP Foundation (IN PROGRESS)
 
 ## Current Position
 
-Phase: 3 of 7 (Dashboard Shell)
-Plan: 3 of 3 in current phase (03-03 complete)
-Status: Complete
-Last activity: 2026-01-29 - Completed 03-03-PLAN.md (Onboarding Tour)
+Phase: 4 of 7 (Instances & MCP Foundation)
+Plan: 4 of 5 in current phase (04-04 complete)
+Status: In progress
+Last activity: 2026-01-29 - Completed 04-04-PLAN.md (MCP Discovery)
 
-Progress: [==========] 50%
+Progress: [============] 55%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: 4.5 min
-- Total execution time: 0.82 hours
+- Total plans completed: 12
+- Average duration: 4.3 min
+- Total execution time: 0.86 hours
 
 **By Phase:**
 
@@ -30,9 +30,10 @@ Progress: [==========] 50%
 | 01-auth-foundation | 3 | 15 min | 5 min |
 | 02-stripe-billing | 5 | 22 min | 4.4 min |
 | 03-dashboard-shell | 3 | 12 min | 4 min |
+| 04-instances-mcp-foundation | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-04 (7 min), 02-05 (3 min), 03-01 (4 min), 03-02 (3 min), 03-03 (5 min)
+- Last 5 plans: 02-05 (3 min), 03-01 (4 min), 03-02 (3 min), 03-03 (5 min), 04-04 (2 min)
 - Trend: Consistently fast
 
 *Updated after each plan completion*
@@ -79,6 +80,9 @@ Recent decisions affecting current work:
 - [03-03]: Tour triggers based on instancias_whatsapp count via usuarios_sistema
 - [03-03]: Billing sync added to syncSubscription - updates organizacoes table
 - [03-03]: Tour skips on mobile (bottom nav is self-explanatory)
+- [04-04]: MCP_API_KEY environment variable for shared secret authentication
+- [04-04]: MCPTool interface following modelcontextprotocol.io spec
+- [04-04]: _meta field in MCP response for version tracking
 
 ### Pending Todos
 
@@ -91,11 +95,12 @@ None yet.
 - User needs to run billing schema migration in Supabase SQL Editor
 - WhatsApp number placeholder (5511999999999) needs to be configured for Enterprise contact
 - User needs to configure NEXT_PUBLIC_STRIPE_PRICE_INICIAL and NEXT_PUBLIC_STRIPE_PRICE_PROFISSIONAL with Stripe Price IDs
+- User needs to configure MCP_API_KEY environment variable for MCP endpoint authentication
 
 ## Session Continuity
 
-Last session: 2026-01-29
-Stopped at: Phase 3 complete - ready for verification
+Last session: 2026-01-29T20:24:30Z
+Stopped at: Completed 04-04-PLAN.md (MCP Discovery)
 Resume file: None
 
 ---
