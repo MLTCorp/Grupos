@@ -1,8 +1,15 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
-import { LogoutButton } from "./logout-button"
 import { TrialBadge } from "@/components/trial-badge"
 import { getSubscriptionStatus } from "@/lib/subscription"
+import { AppSidebar } from "@/components/app-sidebar"
+import { BottomNav } from "@/components/bottom-nav"
+import {
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+import { Separator } from "@/components/ui/separator"
 
 export default async function DashboardLayout({
   children,
@@ -38,29 +45,27 @@ export default async function DashboardLayout({
     redirect("/checkout")
   }
 
+  // Get user name from metadata or fallback to email prefix
+  const userName = user.user_metadata?.name || user.email?.split('@')[0] || 'Usuario'
+
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
-        <div className="container flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">SG</span>
-            </div>
-            <span className="font-semibold">Sincron Grupos</span>
-          </div>
-          <div className="flex items-center gap-4">
-            <TrialBadge
-              status={subscriptionInfo.status}
-              daysRemaining={subscriptionInfo.daysRemaining}
-            />
-            <span className="text-sm text-muted-foreground">{user.email}</span>
-            <LogoutButton />
-          </div>
-        </div>
-      </header>
-      <main className="container py-6 px-4">
-        {children}
-      </main>
-    </div>
+    <SidebarProvider>
+      <AppSidebar user={{ name: userName, email: user.email || '' }} />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <div className="flex-1" />
+          <TrialBadge
+            status={subscriptionInfo.status}
+            daysRemaining={subscriptionInfo.daysRemaining}
+          />
+        </header>
+        <main className="flex-1 p-4 pb-20 md:pb-4">
+          {children}
+        </main>
+      </SidebarInset>
+      <BottomNav />
+    </SidebarProvider>
   )
 }
