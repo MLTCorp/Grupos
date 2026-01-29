@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-28)
 ## Current Position
 
 Phase: 4 of 7 (Instances & MCP Foundation)
-Plan: 4 of 5 in current phase (04-04 complete)
+Plan: 2 of 4 in current phase (04-01, 04-04 complete)
 Status: In progress
-Last activity: 2026-01-29 - Completed 04-04-PLAN.md (MCP Discovery)
+Last activity: 2026-01-29 - Completed 04-01-PLAN.md (UAZAPI Service Layer)
 
-Progress: [============] 55%
+Progress: [=============] 60%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
+- Total plans completed: 13
 - Average duration: 4.3 min
-- Total execution time: 0.86 hours
+- Total execution time: 0.93 hours
 
 **By Phase:**
 
@@ -30,10 +30,10 @@ Progress: [============] 55%
 | 01-auth-foundation | 3 | 15 min | 5 min |
 | 02-stripe-billing | 5 | 22 min | 4.4 min |
 | 03-dashboard-shell | 3 | 12 min | 4 min |
-| 04-instances-mcp-foundation | 1 | 2 min | 2 min |
+| 04-instances-mcp-foundation | 2 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-05 (3 min), 03-01 (4 min), 03-02 (3 min), 03-03 (5 min), 04-04 (2 min)
+- Last 5 plans: 03-01 (4 min), 03-02 (3 min), 03-03 (5 min), 04-04 (2 min), 04-01 (4 min)
 - Trend: Consistently fast
 
 *Updated after each plan completion*
@@ -83,6 +83,10 @@ Recent decisions affecting current work:
 - [04-04]: MCP_API_KEY environment variable for shared secret authentication
 - [04-04]: MCPTool interface following modelcontextprotocol.io spec
 - [04-04]: _meta field in MCP response for version tracking
+- [04-01]: Ported UAZAPI implementation from original project with proven logic
+- [04-01]: API routes use https.Agent with rejectUnauthorized: false for dev SSL issues
+- [04-01]: Webhook excludeMessages includes wasSentByApi to prevent infinite loops
+- [04-01]: UAZAPIService singleton pattern with getUAZAPIService() for client-side calls
 
 ### Pending Todos
 
@@ -96,11 +100,12 @@ None yet.
 - WhatsApp number placeholder (5511999999999) needs to be configured for Enterprise contact
 - User needs to configure NEXT_PUBLIC_STRIPE_PRICE_INICIAL and NEXT_PUBLIC_STRIPE_PRICE_PROFISSIONAL with Stripe Price IDs
 - User needs to configure MCP_API_KEY environment variable for MCP endpoint authentication
+- User needs to configure UAZAPI_BASE_URL, UAZAPI_API_KEY, WEBHOOK_N8N_URL for WhatsApp integration
 
 ## Session Continuity
 
-Last session: 2026-01-29T20:24:30Z
-Stopped at: Completed 04-04-PLAN.md (MCP Discovery)
+Last session: 2026-01-29T20:27:23Z
+Stopped at: Completed 04-01-PLAN.md (UAZAPI Service Layer)
 Resume file: None
 
 ---
