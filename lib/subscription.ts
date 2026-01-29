@@ -21,8 +21,10 @@ export async function syncSubscription(subscription: Stripe.Subscription) {
   const supabase = createServiceClient()
 
   const userId = subscription.metadata.user_id
+  console.log('[SYNC] user_id from metadata:', userId)
+
   if (!userId) {
-    console.error('No user_id in subscription metadata')
+    console.error('[SYNC ERROR] No user_id in subscription metadata')
     return
   }
 
@@ -31,7 +33,7 @@ export async function syncSubscription(subscription: Stripe.Subscription) {
   const currentPeriodStart = firstItem?.current_period_start
   const currentPeriodEnd = firstItem?.current_period_end
 
-  await supabase.from('subscriptions').upsert({
+  const { error } = await supabase.from('subscriptions').upsert({
     id: subscription.id,
     user_id: userId,
     status: subscription.status,
@@ -57,6 +59,52 @@ export async function syncSubscription(subscription: Stripe.Subscription) {
       ? new Date(subscription.trial_end * 1000).toISOString()
       : null,
   })
+
+  if (error) {
+    console.error('[SYNC ERROR] Failed to upsert subscription:', error)
+  } else {
+    console.log('[SYNC SUCCESS] Subscription saved for user:', userId)
+
+    // Sync billing info to organization
+    const stripeCustomerId = subscription.customer as string
+    await syncOrganizationBilling(supabase, userId, stripeCustomerId, subscription)
+  }
+}
+
+// Sync billing info to organizacoes table
+async function syncOrganizationBilling(
+  supabase: ReturnType<typeof createServiceClient>,
+  userId: string,
+  stripeCustomerId: string,
+  subscription: Stripe.Subscription
+) {
+  // Get user's organization
+  const { data: userSistema } = await supabase
+    .from('usuarios_sistema')
+    .select('id_organizacao')
+    .eq('auth_user_id', userId)
+    .single()
+
+  if (!userSistema?.id_organizacao) {
+    console.error('[SYNC ORG] User has no organization:', userId)
+    return
+  }
+
+  // Update organization with billing info
+  const { error } = await supabase.from('organizacoes').update({
+    stripe_customer_id: stripeCustomerId,
+    stripe_subscription_id: subscription.id,
+    subscription_status: subscription.status,
+    trial_ends_at: subscription.trial_end
+      ? new Date(subscription.trial_end * 1000).toISOString()
+      : null
+  }).eq('id', userSistema.id_organizacao)
+
+  if (error) {
+    console.error('[SYNC ORG ERROR] Failed to update organization:', error)
+  } else {
+    console.log('[SYNC ORG SUCCESS] Organization updated:', userSistema.id_organizacao)
+  }
 }
 
 // Used by webhooks (admin context)
