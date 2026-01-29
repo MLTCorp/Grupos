@@ -85,12 +85,13 @@ Plans:
   3. User can view connection history for each instance
   4. MCP discovery endpoint at /api/mcp lists available tools with authentication required
   5. System automatically configures N8N webhook after successful first connection
-**Plans**: TBD
+**Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
-- [ ] 04-03: TBD
+- [ ] 04-01-PLAN.md — UAZAPI service layer + API routes (Wave 1)
+- [ ] 04-02-PLAN.md — Instance components + internal CRUD API (Wave 2)
+- [ ] 04-03-PLAN.md — Instances page + polling + verification (Wave 3)
+- [ ] 04-04-PLAN.md — MCP discovery endpoint with API key auth (Wave 1)
 
 ### Phase 5: Categories & Groups
 **Goal**: Users organize WhatsApp groups into categories for targeted messaging
@@ -153,11 +154,11 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 | 1. Auth Foundation | 3/3 | Complete | 2026-01-28 |
 | 2. Stripe Billing | 5/5 | Complete | 2026-01-28 |
 | 3. Dashboard Shell | 3/3 | Complete | 2026-01-29 |
-| 4. Instances + MCP Foundation | 0/3 | Not started | - |
+| 4. Instances + MCP Foundation | 0/4 | Planned | - |
 | 5. Categories & Groups | 0/3 | Not started | - |
 | 6. Messages | 0/3 | Not started | - |
 | 7. Agent IA | 0/3 | Not started | - |
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-29 (Phase 3 complete)*
+*Last updated: 2026-01-29 (Phase 4 planned)*

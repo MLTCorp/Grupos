@@ -6,9 +6,9 @@
 <domain>
 ## Phase Boundary
 
-Usuários conectam instâncias WhatsApp via UAZAPI e o sistema estabelece infraestrutura de ferramentas MCP. Gerenciamento de instâncias inclui adicionar, conectar via QR code, monitorar status e histórico. Tokens são gerenciados pelo sistema (modelo SaaS) — usuário final não precisa saber sobre tokens.
+Usuários conectam instâncias WhatsApp via UAZAPI e o sistema estabelece infraestrutura de ferramentas MCP que permite que gerenciem grupos. Gerenciamento de instâncias inclui adicionar, conectar via QR code, monitorar status e histórico. Tokens são gerenciados pelo sistema (modelo SaaS) — usuário final não precisa saber sobre tokens. O que precisamos é de uma interface boa e que siga os padrões do sistema. Verificar componentes existentes e o padrão desejado. Não seguir padrão visual e componentes do projeto original, pois serão refeitos a partir dos elementos desse novo projeto, e caso haja algum elemento de status server, cards de status, algo do tipo na internet pode ser aproveitado.
 
-**Referência:** Projeto original em `Projetos/Sincron/sincron-grupos` tem implementação funcional. UX será refeita, lógica pode ser aproveitada.
+**Referência:** Projeto original em `C:\Users\Pichau\Desktop\Projetos\Sincron\sincron-grupos` tem implementação funcional. UX será refeita, lógica pode ser aproveitada.
 
 </domain>
 
@@ -58,8 +58,9 @@ Usuários conectam instâncias WhatsApp via UAZAPI e o sistema estabelece infrae
 <specifics>
 ## Specific Ideas
 
-- Projeto original em `Projetos/Sincron/sincron-grupos` serve como referência de lógica
+- Projeto original em `C:\Users\Pichau\Desktop\Projetos\Sincron\sincron-grupos` serve como referência de lógica
 - Skill UAZAPI disponível para consulta de API
+- temos tambem os uazapi-openapi-spec que tem tudo sobre as chamadas da uazapi ali dentro
 - Token já configurado no env (modelo SaaS — transparente ao usuário)
 - Cards devem ser clean e modernos (similar ao padrão já estabelecido no dashboard)
 
