@@ -17,6 +17,7 @@ import {
   Trash2,
   ChevronDown,
   ChevronUp,
+  RefreshCw,
 } from 'lucide-react'
 import { InstanceHistory } from './instance-history'
 
@@ -61,6 +62,16 @@ const STATUS_CONFIG = {
     label: 'Conectando',
     variant: 'outline' as const,
     className: 'bg-yellow-500/20 text-yellow-500 border-yellow-500/30',
+  },
+  desconectando: {
+    label: 'Desconectando...',
+    variant: 'outline' as const,
+    className: 'bg-yellow-500/20 text-yellow-500 border-yellow-500/30',
+  },
+  erro: {
+    label: 'Erro',
+    variant: 'destructive' as const,
+    className: 'bg-destructive hover:bg-destructive/90',
   },
 }
 
@@ -109,6 +120,8 @@ export function InstanceCard({
   const statusConfig = STATUS_CONFIG[status] || STATUS_CONFIG.desconectado
   const isConnected = status === 'conectado'
   const isConnecting = status === 'conectando'
+  const isDisconnecting = status === 'desconectando'
+  const isError = status === 'erro'
 
   const handleConnect = async () => {
     setIsLoading(true)
@@ -161,17 +174,21 @@ export function InstanceCard({
           </span>
         </div>
 
-        {/* Disconnect reason if applicable */}
+        {/* Error/Disconnect reason if applicable */}
         {!isConnected && instance.last_disconnect_reason && (
-          <p className="text-xs text-red-400 mt-2">
-            Motivo: {instance.last_disconnect_reason}
-          </p>
+          <div className="flex items-start gap-2 mt-2">
+            <RefreshCw className={`h-3 w-3 mt-0.5 flex-shrink-0 ${isError ? 'text-destructive' : 'text-red-400'}`} />
+            <p className={`text-xs ${isError ? 'text-destructive' : 'text-red-400'}`}>
+              {instance.last_disconnect_reason}
+            </p>
+          </div>
         )}
       </CardContent>
 
       {/* Actions */}
       <CardFooter className="flex flex-wrap gap-2 pt-3 border-t">
-        {!isConnected && !isConnecting && (
+        {/* Connect button - show when not connected, not connecting, not disconnecting */}
+        {!isConnected && !isConnecting && !isDisconnecting && (
           <Button
             size="sm"
             variant="default"
@@ -179,28 +196,30 @@ export function InstanceCard({
             disabled={isLoading}
           >
             <QrCode className="h-4 w-4 mr-1" />
-            Conectar
+            {isError ? 'Reconectar' : 'Conectar'}
           </Button>
         )}
 
+        {/* Disconnect button - show when connected or connecting */}
         {(isConnected || isConnecting) && (
           <Button
             size="sm"
             variant="outline"
             onClick={handleDisconnect}
-            disabled={isLoading}
+            disabled={isLoading || isDisconnecting}
           >
             <Power className="h-4 w-4 mr-1" />
             Desconectar
           </Button>
         )}
 
+        {/* Delete button - always visible */}
         <Button
           size="sm"
           variant="ghost"
           className="text-destructive hover:text-destructive hover:bg-destructive/10"
           onClick={() => onDelete(instance)}
-          disabled={isLoading}
+          disabled={isLoading || isDisconnecting}
         >
           <Trash2 className="h-4 w-4" />
         </Button>
