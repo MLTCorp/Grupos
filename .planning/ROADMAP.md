@@ -68,11 +68,12 @@ Plans:
   3. User can toggle dark/light theme and preference persists across sessions
   4. Actions trigger toast notifications for success and error states
   5. New user without instances sees onboarding guidance prompting first instance setup
-**Plans**: TBD
+**Plans**: 3 plans in 3 waves
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
+- [ ] 03-01-PLAN.md — Theme system + toast notifications (Wave 1)
+- [ ] 03-02-PLAN.md — Sidebar navigation + mobile bottom nav (Wave 2)
+- [ ] 03-03-PLAN.md — Onboarding tour for new users (Wave 3)
 
 ### Phase 4: Instances + MCP Foundation
 **Goal**: Users connect WhatsApp instances via UAZAPI and system establishes MCP tool infrastructure
@@ -151,7 +152,7 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 |-------|----------------|--------|-----------|
 | 1. Auth Foundation | 3/3 | Complete | 2026-01-28 |
 | 2. Stripe Billing | 5/5 | Complete | 2026-01-28 |
-| 3. Dashboard Shell | 0/2 | Not started | - |
+| 3. Dashboard Shell | 0/3 | Planned | - |
 | 4. Instances + MCP Foundation | 0/3 | Not started | - |
 | 5. Categories & Groups | 0/3 | Not started | - |
 | 6. Messages | 0/3 | Not started | - |
@@ -159,4 +160,4 @@ Phases execute in numeric order: 1 > 2 > 3 > 4 > 5 > 6 > 7
 
 ---
 *Roadmap created: 2026-01-28*
-*Last updated: 2026-01-28 (Phase 2 complete)*
+*Last updated: 2026-01-28 (Phase 3 planned)*
