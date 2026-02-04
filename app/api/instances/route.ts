@@ -197,7 +197,7 @@ export async function POST(request: NextRequest) {
     const apiKey = uazapiResult.data.instance?.token || uazapiResult.data.instance?.apikey
 
     if (!apiKey) {
-      console.error('No token in UAZAPI response:', uazapiData)
+      console.error('No token in UAZAPI response:', uazapiResult.data)
       return NextResponse.json(
         { error: 'Token nao recebido da UAZAPI' },
         { status: 500 }
