@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { deleteUAZAPIInstance } from '@/lib/uazapi/server'
 
 /**
  * GET - Get single instance details
@@ -143,13 +144,10 @@ export async function DELETE(
     // Delete from UAZAPI if api_key exists
     if (instance.api_key) {
       try {
-        const uazapiResponse = await fetch(
-          `${getBaseUrl()}/api/uazapi/instances/${instance.api_key}`,
-          { method: 'DELETE' }
-        )
+        const result = await deleteUAZAPIInstance(instance.api_key)
 
-        if (!uazapiResponse.ok) {
-          console.warn('UAZAPI delete warning:', await uazapiResponse.text())
+        if (!result.success) {
+          console.warn('UAZAPI delete warning:', result.error)
           // Continue with deletion even if UAZAPI fails
         }
       } catch (e) {
@@ -183,15 +181,4 @@ export async function DELETE(
       { status: 500 }
     )
   }
-}
-
-// Helper to get base URL for internal API calls
-function getBaseUrl(): string {
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
-  if (process.env.NEXT_PUBLIC_APP_URL) {
-    return process.env.NEXT_PUBLIC_APP_URL
-  }
-  return 'http://localhost:3000'
 }

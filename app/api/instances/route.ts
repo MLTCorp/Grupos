@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { createUAZAPIInstance, deleteUAZAPIInstance } from '@/lib/uazapi/server'
 
 // Types for instancias_whatsapp table
 interface Instance {
@@ -179,29 +180,21 @@ export async function POST(request: NextRequest) {
     const uazapiName = `org${usuario.id_organizacao}-${sanitizedName}-${Date.now()}`
 
     // Create instance in UAZAPI first
-    const uazapiResponse = await fetch(`${getBaseUrl()}/api/uazapi/instances`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: uazapiName,
-        systemName: 'sincron-grupos',
-        adminField01: String(usuario.id_organizacao),
-      }),
+    const uazapiResult = await createUAZAPIInstance({
+      name: uazapiName,
+      systemName: 'sincron-grupos',
+      adminField01: String(usuario.id_organizacao),
     })
 
-    if (!uazapiResponse.ok) {
-      const errorText = await uazapiResponse.text()
-      console.error('UAZAPI create error:', errorText)
+    if (!uazapiResult.success) {
+      console.error('UAZAPI create error:', uazapiResult.error)
       return NextResponse.json(
         { error: 'Erro ao criar instancia na UAZAPI' },
         { status: 500 }
       )
     }
 
-    const uazapiData = await uazapiResponse.json()
-    const apiKey = uazapiData.instance?.token || uazapiData.token
+    const apiKey = uazapiResult.data.instance?.token || uazapiResult.data.instance?.apikey
 
     if (!apiKey) {
       console.error('No token in UAZAPI response:', uazapiData)
@@ -228,9 +221,7 @@ export async function POST(request: NextRequest) {
       console.error('Error inserting instance:', insertError)
       // Try to delete from UAZAPI since Supabase insert failed
       try {
-        await fetch(`${getBaseUrl()}/api/uazapi/instances/${apiKey}`, {
-          method: 'DELETE',
-        })
+        await deleteUAZAPIInstance(apiKey)
       } catch (e) {
         console.error('Failed to cleanup UAZAPI instance:', e)
       }
@@ -257,15 +248,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     )
   }
-}
-
-// Helper to get base URL for internal API calls
-function getBaseUrl(): string {
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`
-  }
-  if (process.env.NEXT_PUBLIC_APP_URL) {
-    return process.env.NEXT_PUBLIC_APP_URL
-  }
-  return 'http://localhost:3000'
 }
