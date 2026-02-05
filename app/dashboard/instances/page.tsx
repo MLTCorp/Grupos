@@ -16,10 +16,20 @@ import { usePolling } from '@/lib/hooks/use-polling'
 import { showSuccess, showError } from '@/lib/toast'
 
 const POLLING_INTERVAL = 30000 // 30 seconds
-const MAX_RETRIES = 3
 
-// Track retry attempts per instance
-type RetryMap = Map<number, number>
+// UAZAPI instance status from /instance/all endpoint
+interface UazapiInstance {
+  id: string
+  name: string
+  token: string
+  status: 'connected' | 'disconnected' | 'connecting'
+  profileName?: string
+  profilePicUrl?: string
+  isBusiness?: boolean
+  plataform?: string
+  lastDisconnect?: string
+  lastDisconnectReason?: string
+}
 
 export default function InstancesPage() {
   // Instance state
@@ -38,8 +48,9 @@ export default function InstancesPage() {
   const [pageLoading, setPageLoading] = useState(true)
   const [pageError, setPageError] = useState<string | null>(null)
 
-  // Retry tracking
-  const retryMapRef = useRef<RetryMap>(new Map())
+  // Track consecutive polling failures
+  const pollFailuresRef = useRef(0)
+  const MAX_POLL_FAILURES = 3
 
   // Fetch instances list from internal API
   const fetchInstances = useCallback(async () => {
@@ -75,57 +86,21 @@ export default function InstancesPage() {
     loadInstances()
   }, [fetchInstances])
 
-  // Fetch status for a single instance with retry logic
-  const fetchInstanceStatus = useCallback(async (instance: Instance): Promise<Instance | null> => {
-    if (!instance.api_key) return instance
-
-    const retries = retryMapRef.current.get(instance.id) || 0
-
-    try {
-      const response = await fetch(`/api/uazapi/instances/${instance.api_key}/status`)
-      if (!response.ok) {
-        throw new Error('Status check failed')
-      }
-
-      const data = await response.json()
-      const extractedStatus = data.extractedStatus || {}
-
-      // Reset retry count on success
-      retryMapRef.current.set(instance.id, 0)
-
-      // Build updated instance
-      const updatedInstance: Instance = {
-        ...instance,
-        status: extractedStatus.connected ? 'conectado' : 'desconectado',
-        numero_telefone: extractedStatus.number || instance.numero_telefone,
-        profile_name: extractedStatus.pushName || instance.profile_name,
-        profile_pic_url: extractedStatus.profilePicUrl || instance.profile_pic_url,
-        is_business: extractedStatus.isBusiness ?? instance.is_business,
-        platform: extractedStatus.platform || instance.platform,
-        dt_update: new Date().toISOString(),
-      }
-
-      return updatedInstance
-    } catch (err) {
-      console.error(`Status check failed for ${instance.nome_instancia}:`, err)
-
-      // Increment retry count
-      const newRetries = retries + 1
-      retryMapRef.current.set(instance.id, newRetries)
-
-      // After MAX_RETRIES, mark as error state
-      if (newRetries >= MAX_RETRIES) {
-        return {
-          ...instance,
-          status: 'erro',
-          last_disconnect_reason: 'Erro ao verificar status',
-          dt_update: new Date().toISOString(),
-        }
-      }
-
-      // Return unchanged for retry
-      return instance
+  // Fetch all instance statuses from UAZAPI in a single request
+  const fetchAllStatuses = useCallback(async (): Promise<Map<string, UazapiInstance>> => {
+    const response = await fetch('/api/uazapi/instances')
+    if (!response.ok) {
+      throw new Error('Failed to fetch statuses')
     }
+    const data = await response.json()
+    const uazapiInstances: UazapiInstance[] = data.instances || []
+
+    // Create map by token for quick lookup
+    const statusMap = new Map<string, UazapiInstance>()
+    uazapiInstances.forEach(inst => {
+      statusMap.set(inst.token, inst)
+    })
+    return statusMap
   }, [])
 
   // Auto-configure webhook when connected for the first time
@@ -152,63 +127,100 @@ export default function InstancesPage() {
     }
   }, [])
 
-  // Status polling function
+  // Memoize polling error handler to prevent infinite re-renders
+  const handlePollingError = useCallback((err: Error) => {
+    console.error('Polling error:', err)
+  }, [])
+
+  // Status polling function - single request for all instances
   const pollStatuses = useCallback(async () => {
     if (instances.length === 0) return instances
 
-    const updatedInstances = await Promise.all(
-      instances.map(async (instance) => {
-        const updated = await fetchInstanceStatus(instance)
-        return updated || instance
+    try {
+      // Single request to get all statuses
+      const statusMap = await fetchAllStatuses()
+      pollFailuresRef.current = 0
+
+      // Merge UAZAPI status with our instances
+      const updatedInstances = instances.map((instance): Instance => {
+        if (!instance.api_key) return instance
+
+        const uazapiStatus = statusMap.get(instance.api_key)
+        if (!uazapiStatus) return instance
+
+        const isConnected = uazapiStatus.status === 'connected'
+        return {
+          ...instance,
+          status: isConnected ? 'conectado' : 'desconectado',
+          profile_name: uazapiStatus.profileName || instance.profile_name,
+          profile_pic_url: uazapiStatus.profilePicUrl || instance.profile_pic_url,
+          is_business: uazapiStatus.isBusiness ?? instance.is_business,
+          platform: uazapiStatus.plataform || instance.platform,
+          last_disconnect_reason: uazapiStatus.lastDisconnectReason || instance.last_disconnect_reason,
+          dt_update: new Date().toISOString(),
+        }
       })
-    )
 
-    // Detect status changes
-    const newDisconnected: Instance[] = []
+      // Detect status changes
+      const newDisconnected: Instance[] = []
 
-    updatedInstances.forEach((instance) => {
-      const prevStatus = previousStatuses.get(instance.id)
-      const newStatus = instance.status || 'desconectado'
+      updatedInstances.forEach((instance) => {
+        const prevStatus = previousStatuses.get(instance.id)
+        const newStatus = instance.status || 'desconectado'
 
-      // Check for unexpected disconnection
-      if (prevStatus === 'conectado' && newStatus === 'desconectado') {
-        newDisconnected.push(instance)
-        showError(`${instance.nome_instancia} foi desconectada`)
+        // Check for unexpected disconnection
+        if (prevStatus === 'conectado' && newStatus === 'desconectado') {
+          newDisconnected.push(instance)
+          showError(`${instance.nome_instancia} foi desconectada`)
+        }
+
+        // Auto-configure webhook on first connection
+        if (prevStatus !== 'conectado' && newStatus === 'conectado' && !instance.webhook_url) {
+          configureWebhook(instance)
+        }
+      })
+
+      // Update previous statuses
+      const newStatusMap = new Map<number, string>()
+      updatedInstances.forEach((inst) => {
+        newStatusMap.set(inst.id, inst.status || 'desconectado')
+      })
+      setPreviousStatuses(newStatusMap)
+
+      // Add new disconnected instances to banner (if not dismissed)
+      if (newDisconnected.length > 0 && !bannerDismissed) {
+        setDisconnectedInstances(prev => {
+          const existing = new Set(prev.map(i => i.id))
+          const toAdd = newDisconnected.filter(i => !existing.has(i.id))
+          return [...prev, ...toAdd]
+        })
       }
 
-      // Auto-configure webhook on first connection
-      if (prevStatus !== 'conectado' && newStatus === 'conectado' && !instance.webhook_url) {
-        configureWebhook(instance)
+      setInstances(updatedInstances)
+      return updatedInstances
+    } catch (err) {
+      console.error('Polling error:', err)
+      pollFailuresRef.current++
+
+      // After MAX failures, mark all as error
+      if (pollFailuresRef.current >= MAX_POLL_FAILURES) {
+        const errorInstances = instances.map(inst => ({
+          ...inst,
+          status: 'erro' as const,
+          last_disconnect_reason: 'Erro ao verificar status',
+        }))
+        setInstances(errorInstances)
       }
-    })
 
-    // Update previous statuses
-    const newStatusMap = new Map<number, string>()
-    updatedInstances.forEach((inst) => {
-      newStatusMap.set(inst.id, inst.status || 'desconectado')
-    })
-    setPreviousStatuses(newStatusMap)
-
-    // Add new disconnected instances to banner (if not dismissed)
-    if (newDisconnected.length > 0 && !bannerDismissed) {
-      setDisconnectedInstances(prev => {
-        const existing = new Set(prev.map(i => i.id))
-        const toAdd = newDisconnected.filter(i => !existing.has(i.id))
-        return [...prev, ...toAdd]
-      })
+      return instances
     }
-
-    setInstances(updatedInstances)
-    return updatedInstances
-  }, [instances, previousStatuses, bannerDismissed, fetchInstanceStatus, configureWebhook])
+  }, [instances, previousStatuses, bannerDismissed, fetchAllStatuses, configureWebhook])
 
   // Use polling hook for status updates
   usePolling(pollStatuses, {
     interval: POLLING_INTERVAL,
     enabled: instances.length > 0 && !pageLoading,
-    onError: (err) => {
-      console.error('Polling error:', err)
-    },
+    onError: handlePollingError,
   })
 
   // Event handlers

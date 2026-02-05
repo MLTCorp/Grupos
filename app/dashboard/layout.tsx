@@ -6,6 +6,7 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { BottomNav } from "@/components/bottom-nav"
 import { TourProvider } from "@/components/onboarding/tour-provider"
 import { checkNeedsOnboarding } from "@/components/onboarding/use-onboarding"
+import { CheckoutPendingHandler } from "@/components/checkout-pending-handler"
 import {
   SidebarProvider,
   SidebarInset,
@@ -42,9 +43,11 @@ export default async function DashboardLayout({
     redirect("/blocked")
   }
 
-  // If no subscription at all, redirect to checkout
+  // If no subscription at all, show pending handler
+  // This handles the race condition where user returns from Stripe checkout
+  // but the webhook hasn't synced the subscription yet
   if (subscriptionInfo.status === 'none') {
-    redirect("/checkout")
+    return <CheckoutPendingHandler />
   }
 
   // Get user name from metadata or fallback to email prefix

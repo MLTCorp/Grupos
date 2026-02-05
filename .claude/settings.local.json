@@ -3,7 +3,45 @@
     "allow": [
       "Skill(gsd:map-codebase)",
       "Skill(gsd:map-codebase:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nfeat: adicionar estrutura base da aplicação Grupos\n\n- Implementar componentes UI com shadcn/ui\n- Adicionar página de dashboard com visualizações\n- Configurar sidebar de navegação e componentes de layout\n- Integrar sistema de componentes reutilizáveis\n- Adicionar hooks personalizados e utilitários\n- Atualizar estilos globais e layout da aplicação\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(gh repo create:*)",
+      "Bash(git commit:*)",
+      "Bash(git check-ignore:*)",
+      "mcp__filesystem__directory_tree",
+      "mcp__filesystem__read_text_file",
+      "mcp__filesystem__list_directory",
+      "mcp__filesystem__list_allowed_directories",
+      "Bash(npm run build:*)",
+      "Bash(git reset:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(npm install:*)",
+      "mcp__supabase__list_projects",
+      "mcp__supabase__apply_migration",
+      "mcp__stripe__get_stripe_account_info",
+      "mcp__stripe__create_product",
+      "mcp__stripe__create_price",
+      "mcp__supabase__deploy_edge_function",
+      "Bash(test:*)",
+      "Bash(curl:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm run dev:*)",
+      "Bash(taskkill:*)",
+      "Bash(if exist \".next\\\\dev\\\\lock\" del /F /Q \".next\\\\dev\\\\lock\")",
+      "Bash(stripe:*)",
+      "mcp__supabase__execute_sql",
+      "Bash(npx next lint:*)",
+      "Bash(npx eslint:*)",
+      "Bash(git push:*)"
     ]
-  }
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase",
+    "@21st-dev/magic",
+    "@jpisnice/shadcn-ui-mcp-server",
+    "notionApi",
+    "filesystem"
+  ]
 }

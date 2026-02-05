@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
@@ -10,9 +10,12 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "sonner"
 import { Building2 } from "lucide-react"
+import { Suspense } from "react"
 
-export default function SignupPage() {
+function SignupForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get('redirect') || '/checkout'
   const [name, setName] = useState("")
   const [orgName, setOrgName] = useState("")
   const [email, setEmail] = useState("")
@@ -42,7 +45,7 @@ export default function SignupPage() {
     }
 
     toast.success("Conta criada! Escolha seu plano para continuar.")
-    router.push("/checkout")
+    router.push(redirectTo)
   }
 
   return (
@@ -123,5 +126,13 @@ export default function SignupPage() {
         </CardFooter>
       </form>
     </Card>
+  )
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="animate-pulse">Carregando...</div>}>
+      <SignupForm />
+    </Suspense>
   )
 }

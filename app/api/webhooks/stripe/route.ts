@@ -47,6 +47,9 @@ export async function POST(req: Request) {
       case 'customer.subscription.created':
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription
+        console.log('[WEBHOOK DEBUG] Subscription metadata:', JSON.stringify(subscription.metadata))
+        console.log('[WEBHOOK DEBUG] Subscription ID:', subscription.id)
+        console.log('[WEBHOOK DEBUG] Subscription status:', subscription.status)
         await syncSubscription(subscription)
         break
       }

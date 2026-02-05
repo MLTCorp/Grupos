@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
+import { createClient } from "@/lib/supabase/client"
 
 const menuItems = [
   { name: "Recursos", href: "#features" },
@@ -17,12 +18,20 @@ const menuItems = [
 export function Header() {
   const [menuState, setMenuState] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
 
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50)
   })
+
+  React.useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setIsLoggedIn(!!user)
+    })
+  }, [])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -67,12 +76,20 @@ export function Header() {
 
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center gap-3">
-              <Button variant="ghost" asChild>
-                <Link href="/login">Entrar</Link>
-              </Button>
-              <Button asChild>
-                <Link href="/signup">Comecar Gratis</Link>
-              </Button>
+              {isLoggedIn ? (
+                <Button asChild>
+                  <Link href="/dashboard">Acessar Dashboard</Link>
+                </Button>
+              ) : (
+                <>
+                  <Button variant="ghost" asChild>
+                    <Link href="/login">Entrar</Link>
+                  </Button>
+                  <Button asChild>
+                    <Link href="/signup">Comecar Gratis</Link>
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -113,12 +130,20 @@ export function Header() {
                 ))}
               </ul>
               <div className="flex flex-col gap-2 mt-6 pt-6 border-t">
-                <Button variant="outline" asChild className="w-full">
-                  <Link href="/login">Entrar</Link>
-                </Button>
-                <Button asChild className="w-full">
-                  <Link href="/signup">Comecar Gratis</Link>
-                </Button>
+                {isLoggedIn ? (
+                  <Button asChild className="w-full">
+                    <Link href="/dashboard">Acessar Dashboard</Link>
+                  </Button>
+                ) : (
+                  <>
+                    <Button variant="outline" asChild className="w-full">
+                      <Link href="/login">Entrar</Link>
+                    </Button>
+                    <Button asChild className="w-full">
+                      <Link href="/signup">Comecar Gratis</Link>
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>

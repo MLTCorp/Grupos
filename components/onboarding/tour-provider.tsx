@@ -102,6 +102,8 @@ export function TourProvider({ userId, needsOnboarding }: TourProviderProps) {
           // Clean up any remaining highlight classes
           const highlightedEl = document.querySelector('.tour-final-highlight')
           highlightedEl?.classList.remove('tour-final-highlight')
+          // Must call destroy() when using onDestroyStarted hook
+          driverObj.destroy()
         }
       })
 

@@ -39,12 +39,20 @@ export async function proxy(request: NextRequest) {
   }
 
   // Public routes that don't require authentication
-  const publicRoutes = ['/', '/login', '/signup', '/checkout', '/blocked']
+  const publicRoutes = ['/', '/login', '/signup', '/blocked']
   const isPublicRoute = publicRoutes.includes(request.nextUrl.pathname) ||
     request.nextUrl.pathname.startsWith('/auth/')
 
   // Protected routes that require authentication
   const isProtectedRoute = request.nextUrl.pathname.startsWith('/dashboard')
+
+  // Checkout requires authentication - redirect to signup with return URL
+  if (!user && request.nextUrl.pathname === '/checkout') {
+    const url = request.nextUrl.clone()
+    url.pathname = '/signup'
+    url.searchParams.set('redirect', '/checkout')
+    return NextResponse.redirect(url)
+  }
 
   if (!user && isProtectedRoute) {
     // Redirect to login if not authenticated

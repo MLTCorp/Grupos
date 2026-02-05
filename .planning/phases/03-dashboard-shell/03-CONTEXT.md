@@ -28,7 +28,7 @@ Sistema de navegação e feedback visual consistente para toda a aplicação. Es
 - **Implementação**: Criar componente separado para bottom nav (não usar drawer do Sidebar)
 
 ### Itens de Navegação
-- Mostrar todos os 5 itens desde o início: Instâncias, Categorias, Grupos, Mensagens, Agente
+- Mostrar todos os 6 itens desde o início: Instâncias, Categorias, Grupos, Mensagens, Agente, Gatilhos
 - Itens ainda não disponíveis (fases futuras) aparecem desabilitados/bloqueados
 - Dá ao usuário visão completa da estrutura do sistema desde o primeiro acesso
 

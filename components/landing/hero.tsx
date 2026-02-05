@@ -8,8 +8,18 @@ import { Mockup } from "@/components/ui/mockup"
 import { AnimatedGroup } from "@/components/ui/animated-group"
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text"
 import { cn } from "@/lib/utils"
+import { createClient } from "@/lib/supabase/client"
+import { useEffect, useState } from "react"
 
 export function Hero() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setIsLoggedIn(!!user)
+    })
+  }, [])
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
       {/* Background Effects */}
@@ -48,12 +58,21 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
-            <Button size="lg" className="h-12 px-8 text-base" asChild>
-              <Link href="/signup">
-                Comecar Gratis
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
+            {isLoggedIn ? (
+              <Button size="lg" className="h-12 px-8 text-base" asChild>
+                <Link href="/dashboard">
+                  Acessar Dashboard
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            ) : (
+              <Button size="lg" className="h-12 px-8 text-base" asChild>
+                <Link href="/signup">
+                  Comecar Gratis
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            )}
             <Button
               size="lg"
               variant="outline"
